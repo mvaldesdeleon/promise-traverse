@@ -1,0 +1,27 @@
+const iif = pr => t => f => x => pr(x) ? t(x) : f(x);
+const not = fn => x => !fn(x);
+const and = pra => prb => x => pra(x) && prb(x);
+const isArray = x => x instanceof Array;
+const isPromise = x => x instanceof Promise;
+const isObject = x => typeof x === 'object';
+const isTraversable = and(isObject)(not(isPromise));
+const keys = Object.keys.bind(Object);
+const filter = fn => xs => xs.filter(fn);
+const map = fn => array => array.map(fn);
+const compose = (...fns) => x => fns.reduceRight((v, fn) => fn(v), x);
+const zip = xs => ys => map((y, i) => [xs[i], y])(ys);
+const zipWith = fx => fy => list => zip(fx(list))(fy(list));
+const odds = filter((_, i) => !(i % 2));
+const evens = filter((_, i) => i % 2);
+const pairs = zipWith(odds)(evens);
+const mapO = fn => map => keys(map).reduce((newMap, key) => Object.assign(newMap, {[key]: fn(map[key])}), {});
+const mapAny = fn => iif(isArray)(map(fn))(mapO(fn));
+const listify = map => keys(map).reduce((list, key) => list.concat(key, map[key]), []);
+const mapify = list => pairs(list).reduce((map, [key, value]) => Object.assign(map, {[key]: value}), {});
+const resolve = Promise.resolve.bind(Promise);
+const all = Promise.all.bind(Promise);
+const allO = map => all(listify(map)).then(mapify);
+const allAny = iif(isArray)(all)(allO);
+const traverse = x => isTraversable(x) ? compose(allAny, mapAny(traverse))(x) : resolve(x);
+
+module.exports = traverse;
