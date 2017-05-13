@@ -1,21 +1,22 @@
 {
-    "name" : "promise-traverse",
-    "version" : "0.0.1",
-    "description" : "Promise.all on steroids",
-    "main" : "index.js",
-    "dependencies" : {},
-    "devDependencies" : {
-    },
-    "repository" : "mvaldesdeleon/promise-traverse",
-    "keywords" : [
-        "promise",
-        "all",
-        "promise.all",
-        "deep",
-        "nested",
-        "object",
-        "traverse"
-    ],
-    "author": "Martin Valdes de Leon <m.valdesdeleon@gmail.com>",
-    "license" : "MIT"
+  "name": "promise-traverse",
+  "version": "0.0.1",
+  "description": "Promise.all on steroids",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "tape": "^4.6.3"
+  },
+  "repository": "mvaldesdeleon/promise-traverse",
+  "keywords": [
+    "promise",
+    "all",
+    "promise.all",
+    "deep",
+    "nested",
+    "object",
+    "traverse"
+  ],
+  "author": "Martin Valdes de Leon <m.valdesdeleon@gmail.com>",
+  "license": "MIT"
 }
