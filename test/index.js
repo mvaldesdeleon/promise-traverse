@@ -2,9 +2,10 @@ const test = require('tape');
 const traverse = require('../index.js');
 
 test('traverse', t => {
+    const d = new Date();
     const x = {
         name: Promise.resolve('john'),
-        cats: [{color: 'white'}, {color: Promise.resolve('black')}],
+        cats: [{color: 'white', date: d}, {color: Promise.resolve('black')}],
         numbers: [1, 13, Promise.resolve(42)]
     };
     const y = {
@@ -19,7 +20,7 @@ test('traverse', t => {
     const aa = a.then(px => {
         t.deepEqual({
             name: 'john',
-            cats: [{color: 'white'}, {color: 'black'}],
+            cats: [{color: 'white', date: d}, {color: 'black'}],
             numbers: [1, 13, 42]
         }, px);
     });

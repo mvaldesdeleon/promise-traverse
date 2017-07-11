@@ -1,10 +1,10 @@
 const iif = pr => t => f => x => pr(x) ? t(x) : f(x);
 const not = fn => x => !fn(x);
-const and = pra => prb => x => pra(x) && prb(x);
+const or = pra => prb => x => pra(x) || prb(x);
 const isArray = x => x instanceof Array;
 const isPromise = x => x instanceof Promise;
-const isObject = x => typeof x === 'object';
-const isTraversable = and(isObject)(not(isPromise));
+const isPlainObject = x => typeof x === 'object' && x !== null && x == '[object Object]';
+const isTraversable = or(isPlainObject)(isArray);
 const keys = Object.keys.bind(Object);
 const filter = fn => xs => xs.filter(fn);
 const map = fn => array => array.map(fn);
